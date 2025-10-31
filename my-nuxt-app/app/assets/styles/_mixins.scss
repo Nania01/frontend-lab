@@ -1,0 +1,8 @@
+@mixin card($bg-color, $text-color: black) {
+  background: $bg-color;
+  color: $text-color;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
