@@ -15,6 +15,8 @@
 </template>
 
 <style lang="scss">
+@use '~/assets/styles/mixins' as *;
+
 .main {
   padding: 24px;
   text-align: center;
