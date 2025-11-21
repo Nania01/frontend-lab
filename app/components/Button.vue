@@ -10,10 +10,11 @@
   height: 49px;
   border: none;
   border-radius: 10px;
+  font-family: vars.$font-title;
   background: vars.$color-green;
   color: vars.$color-white;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 </style>

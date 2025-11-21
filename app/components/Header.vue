@@ -84,6 +84,6 @@
   font-size: 16px;
   line-height: 17px;
   color: vars.$color-black;
-  font-family: vars.$font-base;
+  font-family: vars.$font-title;
 }
 </style>
