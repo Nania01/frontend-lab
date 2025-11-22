@@ -1,31 +1,24 @@
 <template>
   <div>
     <Header />
-    <Banner />
+
     <main class="main">
-      <h1>Hello, World!</h1>
-      <p>Look at my website</p>
-      <div class="cards">
-        <Card text="Here" />
-        <Card text="And here" />
-      </div>
+      <h1>Hello, world!</h1>
     </main>
+
     <Footer />
   </div>
 </template>
 
 <style lang="scss">
-@use '~/assets/styles/mixins' as *;
-
 .main {
-  padding: 24px;
+  padding: 48px 0;
   text-align: center;
 
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 16px;
+  h1 {
+    font-size: 36px;
+    font-family: 'Montserrat';
+    margin: 0;
   }
 }
 </style>
