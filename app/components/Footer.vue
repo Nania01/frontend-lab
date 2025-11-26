@@ -53,6 +53,7 @@
   padding: 37px 88px;
   background: vars.$color-footer-bg;
   color: vars.$color-white;
+  margin-top: auto;
 }
 
 .logo {
