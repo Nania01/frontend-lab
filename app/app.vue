@@ -1,31 +1,38 @@
 <template>
-  <div>
+  <div class="root">
     <Header />
-    <Banner />
+
     <main class="main">
-      <h1>Hello, World!</h1>
-      <p>Look at my website</p>
-      <div class="cards">
-        <Card text="Here" />
-        <Card text="And here" />
-      </div>
+      <h1>Hello, world!</h1>
     </main>
+
     <Footer />
   </div>
 </template>
 
 <style lang="scss">
-@use '~/assets/styles/mixins' as *;
+@import '@csstools/normalize.css';
+
+body, html, #__nuxt, .root {
+  height: 100%;
+  margin: 0;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 .main {
-  padding: 24px;
+  flex-grow: 1;
+  padding: 48px 0;
   text-align: center;
+}
 
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 16px;
-  }
+h1 {
+  font-size: 36px;
+  font-family: 'Montserrat';
+  margin: 0;
 }
 </style>
