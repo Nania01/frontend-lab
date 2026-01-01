@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue';
+
+const isDrawerOpen = ref(false);
+</script>
+
 <template>
   <header class="header">
     <div class="inner">
@@ -20,10 +26,12 @@
 
         <Button class="btn-desktop">Оставить заявку</Button>
 
-        <button class="btn-mobile">
+        <button class="btn-mobile" @click="isDrawerOpen = true">
           <img src="~/assets/images/menu-icon.svg" class="menu-icon" />
         </button>
       </div>
+      
+      <Drawer :isOpen="isDrawerOpen" @close="isDrawerOpen = false" />
 
     </div>
   </header>
@@ -72,7 +80,7 @@
 .menu {
   @include mixins.flex-row;
   column-gap: vars.$menu-gap;
-  row-gap: 10px;
+  row-gap: 4px;
   list-style: none;
   padding: 0;
   margin: 0;
