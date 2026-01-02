@@ -4,6 +4,7 @@
 
     <main class="main">
       <Slider />
+      <InfoBlock />
     </main>
 
     <Footer />

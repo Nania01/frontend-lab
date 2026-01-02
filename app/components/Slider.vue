@@ -25,15 +25,18 @@ import s3P2x from '~/assets/images/slide-3-portrait@2x.jpg'
 const slides = [
   {
     image_landscape: { x1: s1L1x, x2: s1L2x },
-    image_portrait: { x1: s1P1x, x2: s1P2x }
+    image_portrait: { x1: s1P1x, x2: s1P2x },
+    alt: 'Современный загородный дом с бассейном'
   },
   {
     image_landscape: { x1: s2L1x, x2: s2L2x },
-    image_portrait: { x1: s2P1x, x2: s2P2x }
+    image_portrait: { x1: s2P1x, x2: s2P2x },
+    alt: 'Уютный дом в горах'
   },
   {
     image_landscape: { x1: s3L1x, x2: s3L2x },
-    image_portrait: { x1: s3P1x, x2: s3P2x }
+    image_portrait: { x1: s3P1x, x2: s3P2x },
+    alt: 'Коттедж с панорамными окнами'
   }
 ]
 
@@ -69,7 +72,7 @@ const onSlideChange = (swiper) => {
               <source
                 :srcset="`${slide.image_portrait.x2} 2x, ${slide.image_portrait.x1} 1x`"
               />
-              <img :src="slide.image_landscape.x1" alt="Hero image" class="slide-img" />
+              <img :src="slide.image_landscape.x1" :alt="slide.alt" class="slide-img" />
             </picture>
           </figure>
         </SwiperSlide>
@@ -182,6 +185,7 @@ const onSlideChange = (swiper) => {
   margin: 0;
   width: 100%;
   height: 100%;
+  background-color: vars.$color-gray;
 }
 
 .slide-img {
