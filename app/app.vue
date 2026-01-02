@@ -13,6 +13,8 @@
           <Projects />
         </div>
       </section>
+
+      <NewsList />
     </main>
 
     <Footer />
@@ -59,9 +61,11 @@ body, html, #__nuxt, .root {
 .projects-section {
   background-color: #F5F7F3;
   padding-block: 80px;
+  margin-bottom: 80px;
 
   @include mixins.mobile {
     padding-block: 40px;
+    margin-bottom: 40px;
   }
 }
 
