@@ -41,7 +41,7 @@ const newsItems = [
     <div class="container">
       <div class="header-row">
         <h2 class="section-title">Новости</h2>
-        <button class="btn-all">Все новости</button>
+        <NuxtLink to="/news" class="btn-all">Все новости</NuxtLink>
       </div>
 
       <div class="grid">
@@ -119,6 +119,8 @@ const newsItems = [
   font-size: 14px;
   cursor: pointer;
   transition: opacity 0.3s;
+  text-decoration: none;
+  display: inline-block;
 
   &:hover {
     opacity: 0.8;

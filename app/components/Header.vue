@@ -9,12 +9,14 @@ const isDrawerOpen = ref(false);
     <div class="inner">
 
       <div class="left">
-        <img src="~/assets/images/logo.svg" class="logo" />
+        <NuxtLink to="/">
+          <img src="~/assets/images/logo.svg" class="logo" alt="Logo" />
+        </NuxtLink>
 
         <ul class="menu">
-          <li>Реализованные проекты</li>
-          <li>Новости</li>
-          <li>Контакты</li>
+          <li><NuxtLink to="/">Реализованные проекты</NuxtLink></li>
+          <li><NuxtLink to="/news" active-class="active-link">Новости</NuxtLink></li>
+          <li><NuxtLink to="/">Контакты</NuxtLink></li>
         </ul>
       </div>
 
@@ -75,6 +77,7 @@ const isDrawerOpen = ref(false);
   width: 160px;
   height: 39px;
   flex-shrink: 0;
+  display: block;
 }
 
 .menu {
@@ -84,7 +87,6 @@ const isDrawerOpen = ref(false);
   list-style: none;
   padding: 0;
   margin: 0;
-  color: vars.$color-gray;
   font-size: 16px;
   font-family: vars.$font-base;
   line-height: 19px;
@@ -92,6 +94,15 @@ const isDrawerOpen = ref(false);
 
   @include mixins.tablet {
     display: none;
+  }
+  
+  a {
+    color: vars.$color-gray;
+    transition: color 0.3s;
+    
+    &:hover, &.active-link {
+      color: vars.$color-green;
+    }
   }
 }
 
