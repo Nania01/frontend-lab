@@ -1,6 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+import Modal from './Modal.vue'
+
+const isModalOpen = ref(false)
+</script>
+
 <template>
   <footer class="footer">
-    <img src="~/assets/images/logo-footer.svg" class="logo" />
+    <img src="~/assets/images/logo-footer.svg" class="logo" alt="Logo" />
 
     <ul class="sections">
       <li>Реализованные проекты</li>
@@ -11,21 +18,21 @@
     <ul class="sections contacts-list">
       <li>
         <div class="contact">
-          <img src="~/assets/images/phone.svg" class="icon" />
+          <img src="~/assets/images/phone.svg" class="icon" alt="Phone" />
           <span class="text">+7 (900) 900-90-90</span>
         </div>
       </li>
 
       <li>
         <div class="contact">
-          <img src="~/assets/images/email.svg" class="icon" />
+          <img src="~/assets/images/email.svg" class="icon" alt="Email" />
           <span class="text">info@gmail.com</span>
         </div>
       </li>
 
       <li>
         <div class="contact address">
-          <img src="~/assets/images/location.svg" class="icon" />
+          <img src="~/assets/images/location.svg" class="icon" alt="Location" />
           <span class="text">
             г. Владивосток<br />
             ул. Выселковая 49, стр. 3
@@ -34,13 +41,15 @@
       </li>
     </ul>
 
-    <Button class="btn">Оставить заявку</Button>
+    <Button class="btn" @click="isModalOpen = true">Оставить заявку</Button>
 
     <div class="legal">
       <div class="bottom-text">© Загдом, 2021</div>
       <div class="bottom-text">Политика конфиденциальности</div>
       <div class="bottom-text">Пользовательское соглашение</div>
     </div>
+
+    <Modal v-model:open="isModalOpen" />
   </footer>
 </template>
 
@@ -51,7 +60,10 @@
 .footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 32px;
+  grid-template-areas: 
+    "logo nav contacts btn"
+    "legal legal legal legal";
+  gap: 32px;
   padding: 37px 88px;
   background: vars.$color-footer-bg;
   color: vars.$color-white;
@@ -59,36 +71,41 @@
 
   @include mixins.tablet {
     grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "logo btn"
+      "nav contacts"
+      "legal legal";
     padding: 37px 32px;
-    grid-row-gap: 40px;
+    gap: 40px;
   }
 
   @include mixins.mobile {
     grid-template-columns: 1fr;
+    grid-template-areas: 
+      "logo"
+      "nav"
+      "contacts"
+      "btn"
+      "legal";
     padding: 40px 24px;
     justify-items: start;
     text-align: left;
-    grid-row-gap: 32px;
+    gap: 32px;
   }
 }
 
 .logo {
+  grid-area: logo;
   width: 160px;
   height: 39px;
 
-  @include mixins.tablet {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
   @include mixins.mobile {
-    grid-column: auto;
-    grid-row: auto;
     margin-bottom: 8px;
   }
 }
 
 .sections {
+  grid-area: nav;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -99,28 +116,13 @@
   font-size: 16px;
   line-height: 19px;
 
-  @include mixins.tablet {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
   @include mixins.mobile {
     align-items: flex-start;
-    grid-column: auto;
-    grid-row: auto;
   }
 }
 
 .contacts-list {
-  @include mixins.tablet {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  @include mixins.mobile {
-    grid-column: auto;
-    grid-row: auto;
-  }
+  grid-area: contacts;
 }
 
 .contacts-list .text {
@@ -143,17 +145,14 @@
 }
 
 .btn {
+  grid-area: btn;
   justify-self: end;
 
   @include mixins.tablet {
-    grid-column: 2;
-    grid-row: 1;
     justify-self: start;
   }
 
   @include mixins.mobile {
-    grid-column: auto;
-    grid-row: auto;
     justify-self: start;
     width: 100%;
     max-width: 204px;
@@ -162,12 +161,12 @@
 }
 
 .legal {
-  grid-column: 1 / -1;
+  grid-area: legal;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  width: 100%;
   
   @include mixins.tablet {
-    grid-row: 3;
     display: flex;
     flex-wrap: wrap;
     gap: 16px 30px;
@@ -175,8 +174,6 @@
   }
 
   @include mixins.mobile {
-    grid-column: auto;
-    grid-row: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
