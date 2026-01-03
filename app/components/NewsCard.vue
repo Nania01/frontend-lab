@@ -1,11 +1,13 @@
 <script setup>
-defineProps({
+import truncate from 'truncate-html'
+
+const props = defineProps({
   image: {
     type: Object,
     required: true
   },
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   title: {
@@ -17,6 +19,8 @@ defineProps({
     required: true
   }
 })
+
+const truncatedDescription = truncate(props.description, 15, { byWords: true })
 </script>
 
 <template>
@@ -29,9 +33,15 @@ defineProps({
     </div>
     
     <div class="content">
-      <div class="date">{{ date }}</div>
+      <div class="date">
+        {{ date.toLocaleDateString('ru', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }) }}
+      </div>
       <h3 class="title">{{ title }}</h3>
-      <p class="description">{{ description }}</p>
+      <p class="description" v-html="truncatedDescription"></p>
     </div>
   </div>
 </template>
@@ -92,10 +102,5 @@ defineProps({
   line-height: 1.4;
   color: vars.$color-gray;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 </style>
