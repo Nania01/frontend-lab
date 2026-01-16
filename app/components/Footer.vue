@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue'
-import Modal from './Modal.vue'
+import { ref } from 'vue';
+import Modal from './Modal.vue';
+import { mockContacts } from '~/mock/contacts';
 
-const isModalOpen = ref(false)
+const isModalOpen = ref(false);
+const { phone, email, address } = mockContacts;
 </script>
 
 <template>
@@ -14,21 +16,21 @@ const isModalOpen = ref(false)
     <ul class="sections">
       <li><NuxtLink to="/">Реализованные проекты</NuxtLink></li>
       <li><NuxtLink to="/news">Новости</NuxtLink></li>
-      <li><NuxtLink to="/">Контакты</NuxtLink></li>
+      <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
     </ul>
 
     <ul class="sections contacts-list">
       <li>
         <div class="contact">
           <img src="~/assets/images/phone.svg" class="icon" alt="Phone" />
-          <span class="text">+7 (900) 900-90-90</span>
+          <a :href="`tel:${phone.value}`" class="text">{{ phone.label }}</a>
         </div>
       </li>
 
       <li>
         <div class="contact">
           <img src="~/assets/images/email.svg" class="icon" alt="Email" />
-          <span class="text">info@gmail.com</span>
+          <a :href="`mailto:${email.value}`" class="text">{{ email.label }}</a>
         </div>
       </li>
 
@@ -36,8 +38,8 @@ const isModalOpen = ref(false)
         <div class="contact address">
           <img src="~/assets/images/location.svg" class="icon" alt="Location" />
           <span class="text">
-            г. Владивосток<br />
-            ул. Выселковая 49, стр. 3
+            {{ address.city }}<br />
+            {{ address.street }}
           </span>
         </div>
       </li>
@@ -143,6 +145,8 @@ const isModalOpen = ref(false)
   font-size: 14px;
   line-height: 17px;
   white-space: pre-line;
+  color: inherit;
+  text-decoration: none;
 }
 
 .contact {

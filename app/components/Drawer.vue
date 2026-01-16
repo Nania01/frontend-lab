@@ -1,5 +1,6 @@
 <script setup>
 import { watch, onUnmounted } from 'vue';
+import { mockContacts } from '~/mock/contacts';
 
 const props = defineProps({
   isOpen: {
@@ -9,6 +10,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close']);
+const { phone, email, address } = mockContacts;
 
 watch(
   () => props.isOpen,
@@ -37,23 +39,23 @@ onUnmounted(() => {
 
       <div class="drawer-content">
         <ul class="menu-list">
-          <li>Реализованные проекты</li>
-          <li>Новости</li>
-          <li>Контакты</li>
+          <li><NuxtLink to="/" @click="emit('close')">Реализованные проекты</NuxtLink></li>
+          <li><NuxtLink to="/news" @click="emit('close')">Новости</NuxtLink></li>
+          <li><NuxtLink to="/contacts" @click="emit('close')">Контакты</NuxtLink></li>
         </ul>
 
         <div class="contacts-block">
           <div class="contact-row">
             <img src="~/assets/images/phone.svg" class="icon" />
-            <span>+7 (900) 900-90-90</span>
+            <a :href="`tel:${phone.value}`">{{ phone.label }}</a>
           </div>
           <div class="contact-row">
             <img src="~/assets/images/email.svg" class="icon" />
-            <span>info@gmail.com</span>
+            <a :href="`mailto:${email.value}`">{{ email.label }}</a>
           </div>
           <div class="contact-row address">
             <img src="~/assets/images/location.svg" class="icon" />
-            <span>г. Владивосток<br />ул. Выселковая 49, стр. 3</span>
+            <span>{{ address.city }}<br />{{ address.street }}</span>
           </div>
         </div>
       </div>
@@ -148,6 +150,10 @@ onUnmounted(() => {
   font-family: vars.$font-base;
   font-size: 18px;
   font-weight: 600;
+
+  a {
+    color: inherit; 
+  }
 }
 
 .contacts-block {
@@ -163,6 +169,11 @@ onUnmounted(() => {
   gap: 12px;
   font-family: vars.$font-title;
   font-size: 16px;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
   &.address {
     align-items: flex-start;
