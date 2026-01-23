@@ -9,6 +9,7 @@ import {
   DialogDescription,
   DialogClose
 } from 'radix-vue'
+import OrderForm from './OrderForm.vue'
 
 defineProps({
   open: Boolean
@@ -33,9 +34,8 @@ const emit = defineEmits(['update:open'])
           Оставьте свои контакты, и мы свяжемся с вами в ближайшее время.
         </DialogDescription>
         
-        <div class="placeholder">
-          Здесь будет форма
-        </div>
+        <OrderForm />
+        
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
@@ -43,6 +43,7 @@ const emit = defineEmits(['update:open'])
 
 <style scoped lang="scss">
 @use "~/assets/styles/variables" as vars;
+@use "~/assets/styles/mixins" as mixins;
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -53,6 +54,7 @@ const emit = defineEmits(['update:open'])
 }
 
 .content {
+  box-sizing: border-box;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 10px 38px -10px rgba(22, 23, 24, 0.35), 0 10px 20px -15px rgba(22, 23, 24, 0.2);
@@ -62,17 +64,25 @@ const emit = defineEmits(['update:open'])
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 450px;
-  max-height: 85vh;
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 32px;
   z-index: 101;
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include mixins.mobile {
+    padding: 24px 16px;
+    width: calc(100% - 40px);
+    max-height: 85vh;
+  }
 }
 
 .header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .title {
@@ -81,19 +91,29 @@ const emit = defineEmits(['update:open'])
   font-size: 24px;
   color: vars.$color-black;
   margin: 0;
+  text-align: center;
+
+  @include mixins.mobile {
+    font-size: 20px;
+  }
 }
 
 .close-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  
   font-family: inherit;
-  border-radius: 100%;
+  border-radius: 4px;
   height: 32px;
   width: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: vars.$color-green;
-  background-color: transparent;
-  border: 1px solid vars.$color-border;
+  background-color: #E8F8F1; 
+  border: none;
   cursor: pointer;
   transition: all 0.2s;
 
@@ -104,22 +124,7 @@ const emit = defineEmits(['update:open'])
 }
 
 .description {
-  font-family: vars.$font-base;
-  font-size: 16px;
-  color: vars.$color-gray;
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-
-.placeholder {
-  height: 100px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: vars.$color-gray;
-  font-family: vars.$font-base;
+  display: none; 
 }
 
 @keyframes overlayShow {

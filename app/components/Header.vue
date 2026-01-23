@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { mockContacts } from '~/mock/contacts';
+import Modal from './Modal.vue';
 
 const isDrawerOpen = ref(false);
+const isModalOpen = ref(false);
 const { phone } = mockContacts;
 </script>
 
@@ -28,7 +30,7 @@ const { phone } = mockContacts;
           <a :href="`tel:${phone.value}`" class="phone-text">{{ phone.label }}</a>
         </div>
 
-        <Button class="btn-desktop">Оставить заявку</Button>
+        <Button class="btn-desktop" @click="isModalOpen = true">Оставить заявку</Button>
 
         <button class="btn-mobile" @click="isDrawerOpen = true">
           <img src="~/assets/images/menu-icon.svg" class="menu-icon" />
@@ -36,6 +38,7 @@ const { phone } = mockContacts;
       </div>
       
       <Drawer :isOpen="isDrawerOpen" @close="isDrawerOpen = false" />
+      <Modal v-model:open="isModalOpen" />
 
     </div>
   </header>
