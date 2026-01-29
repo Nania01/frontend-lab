@@ -1,7 +1,7 @@
 <script setup>
 import { mockContacts } from '~/mock/contacts'
 
-const { phone, email, address } = mockContacts
+const { address } = mockContacts
 
 const mapSettings = {
   location: {
@@ -25,38 +25,14 @@ const mapSettings = {
 
       <div class="contacts-wrapper">
         <div class="info-column">
-          
-          <div class="contact-row">
-            <img src="~/assets/images/phone.svg" class="contact-icon" alt="Телефон" />
-            <a :href="`tel:${phone.value}`" class="phone-link">{{ phone.label }}</a>
-          </div>
-          
-          <div class="contact-row">
-            <img src="~/assets/images/email.svg" class="contact-icon" alt="Email" />
-            <a :href="`mailto:${email.value}`" class="email-link">{{ email.label }}</a>
-          </div>
-
-          <div class="contact-row address-row">
-            <img src="~/assets/images/location.svg" class="contact-icon" alt="Адрес" />
-            <div class="address-block">
-              <span class="city">{{ address.city }}</span>
-              <span class="street">{{ address.street }}</span>
-            </div>
-          </div>
-
+          <ContactsInfo />
         </div>
 
         <div class="map-column">
-          <ClientOnly>
-            <yandex-map :settings="mapSettings" width="100%" height="100%">
-                <yandex-map-default-scheme-layer />
-                <yandex-map-default-features-layer />
-                <yandex-map-default-marker :settings="{ coordinates: address.coords }" />
-            </yandex-map>
-          </ClientOnly>
+          <div class="map-placeholder">Карта загружается...</div>
         </div>
       </div>
-
+      
     </div>
   </div>
 </template>
@@ -88,7 +64,7 @@ const mapSettings = {
 .breadcrumbs {
   display: flex;
   gap: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   font-family: vars.$font-base;
   font-size: 14px;
   color: vars.$color-gray;
@@ -97,6 +73,7 @@ const mapSettings = {
 .crumb-link {
   color: vars.$color-gray;
   transition: color 0.2s;
+  text-decoration: none;
   
   &.green {
     color: vars.$color-green;
@@ -107,15 +84,23 @@ const mapSettings = {
   }
 }
 
+.separator {
+  color: vars.$color-gray;
+}
+
+.crumb-current {
+  color: vars.$color-gray;
+}
+
 .page-title {
   font-family: vars.$font-title;
   font-weight: 700;
-  font-size: 30px;
-  margin: 0 0 32px 0;
+  font-size: 36px;
+  margin: 0 0 40px 0;
   color: vars.$color-black;
 
   @include mixins.mobile {
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 24px;
   }
 }
@@ -134,67 +119,22 @@ const mapSettings = {
 .info-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.contact-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  &.address-row {
-    align-items: flex-start;
-  }
-}
-
-.contact-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.phone-link {
-  font-family: vars.$font-title;
-  font-weight: 700; 
-  font-size: 20px;
-  color: vars.$color-black;
-  text-decoration: none;
-  line-height: 1.2;
-  
-  @include mixins.mobile {
-    font-size: 18px;
-  }
-}
-
-.email-link {
-  font-family: vars.$font-base;
-  font-size: 16px;
-  color: vars.$color-black;
-  text-decoration: underline;
-  line-height: 1.2;
-  
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.address-block {
-  display: flex;
-  flex-direction: column;
-  font-family: vars.$font-base;
-  font-size: 16px; 
-  line-height: 1.4;
-  color: vars.$color-black;
-}
-
-.city {
-  font-weight: 600;
 }
 
 .map-column {
-  min-height: 400px;
-  border-radius: 10px;
+  width: 100%;
+  height: 400px;
+  background-color: #eee;
+  border-radius: 20px;
   overflow: hidden;
+}
+
+.map-placeholder {
+  width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: vars.$color-gray;
 }
 </style>

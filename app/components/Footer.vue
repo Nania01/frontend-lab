@@ -1,10 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import Modal from './Modal.vue';
-import { mockContacts } from '~/mock/contacts';
 
 const isModalOpen = ref(false);
-const { phone, email, address } = mockContacts;
 </script>
 
 <template>
@@ -19,31 +17,7 @@ const { phone, email, address } = mockContacts;
       <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
     </ul>
 
-    <ul class="sections contacts-list">
-      <li>
-        <div class="contact">
-          <img src="~/assets/images/phone.svg" class="icon" alt="Phone" />
-          <a :href="`tel:${phone.value}`" class="text">{{ phone.label }}</a>
-        </div>
-      </li>
-
-      <li>
-        <div class="contact">
-          <img src="~/assets/images/email.svg" class="icon" alt="Email" />
-          <a :href="`mailto:${email.value}`" class="text">{{ email.label }}</a>
-        </div>
-      </li>
-
-      <li>
-        <div class="contact address">
-          <img src="~/assets/images/location.svg" class="icon" alt="Location" />
-          <span class="text">
-            {{ address.city }}<br />
-            {{ address.street }}
-          </span>
-        </div>
-      </li>
-    </ul>
+    <ContactsInfo variant="footer" class="sections contacts-list" />
 
     <Button class="btn" @click="isModalOpen = true">Оставить заявку</Button>
 
@@ -53,7 +27,7 @@ const { phone, email, address } = mockContacts;
       <div class="bottom-text">Пользовательское соглашение</div>
     </div>
 
-    <Modal v-model:open="isModalOpen" />
+    <Modal :isOpen="isModalOpen" @close="isModalOpen = false" />
   </footer>
 </template>
 
@@ -99,7 +73,7 @@ const { phone, email, address } = mockContacts;
 }
 
 .logo-link {
-    grid-area: logo;
+   grid-area: logo;
 }
 
 .logo {
@@ -130,6 +104,7 @@ const { phone, email, address } = mockContacts;
   
   li a {
       color: vars.$color-white;
+      text-decoration: none;
       &:hover {
           text-decoration: underline;
       }
@@ -138,27 +113,6 @@ const { phone, email, address } = mockContacts;
 
 .contacts-list {
   grid-area: contacts;
-}
-
-.contacts-list .text {
-  font-family: vars.$font-title;
-  font-size: 14px;
-  line-height: 17px;
-  white-space: pre-line;
-  color: inherit;
-  text-decoration: none;
-}
-
-.contact {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-align: left;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
 }
 
 .btn {
