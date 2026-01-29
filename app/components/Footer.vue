@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import Modal from './Modal.vue'
+import { ref } from 'vue';
+import Modal from './Modal.vue';
 
-const isModalOpen = ref(false)
+const isModalOpen = ref(false);
 </script>
 
 <template>
@@ -14,34 +14,10 @@ const isModalOpen = ref(false)
     <ul class="sections">
       <li><NuxtLink to="/">Реализованные проекты</NuxtLink></li>
       <li><NuxtLink to="/news">Новости</NuxtLink></li>
-      <li><NuxtLink to="/">Контакты</NuxtLink></li>
+      <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
     </ul>
 
-    <ul class="sections contacts-list">
-      <li>
-        <div class="contact">
-          <img src="~/assets/images/phone.svg" class="icon" alt="Phone" />
-          <span class="text">+7 (900) 900-90-90</span>
-        </div>
-      </li>
-
-      <li>
-        <div class="contact">
-          <img src="~/assets/images/email.svg" class="icon" alt="Email" />
-          <span class="text">info@gmail.com</span>
-        </div>
-      </li>
-
-      <li>
-        <div class="contact address">
-          <img src="~/assets/images/location.svg" class="icon" alt="Location" />
-          <span class="text">
-            г. Владивосток<br />
-            ул. Выселковая 49, стр. 3
-          </span>
-        </div>
-      </li>
-    </ul>
+    <ContactsInfo variant="footer" class="sections contacts-list" />
 
     <Button class="btn" @click="isModalOpen = true">Оставить заявку</Button>
 
@@ -51,7 +27,7 @@ const isModalOpen = ref(false)
       <div class="bottom-text">Пользовательское соглашение</div>
     </div>
 
-    <Modal v-model:open="isModalOpen" />
+    <Modal :isOpen="isModalOpen" @close="isModalOpen = false" />
   </footer>
 </template>
 
@@ -97,7 +73,7 @@ const isModalOpen = ref(false)
 }
 
 .logo-link {
-    grid-area: logo;
+   grid-area: logo;
 }
 
 .logo {
@@ -128,6 +104,7 @@ const isModalOpen = ref(false)
   
   li a {
       color: vars.$color-white;
+      text-decoration: none;
       &:hover {
           text-decoration: underline;
       }
@@ -136,25 +113,6 @@ const isModalOpen = ref(false)
 
 .contacts-list {
   grid-area: contacts;
-}
-
-.contacts-list .text {
-  font-family: vars.$font-title;
-  font-size: 14px;
-  line-height: 17px;
-  white-space: pre-line;
-}
-
-.contact {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-align: left;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
 }
 
 .btn {

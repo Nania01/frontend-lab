@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+import { mockContacts } from '~/mock/contacts';
 
 const isDrawerOpen = ref(false);
+const { phone } = mockContacts;
 </script>
 
 <template>
@@ -16,14 +18,14 @@ const isDrawerOpen = ref(false);
         <ul class="menu">
           <li><NuxtLink to="/">Реализованные проекты</NuxtLink></li>
           <li><NuxtLink to="/news" active-class="active-link">Новости</NuxtLink></li>
-          <li><NuxtLink to="/">Контакты</NuxtLink></li>
+          <li><NuxtLink to="/contacts" active-class="active-link">Контакты</NuxtLink></li>
         </ul>
       </div>
 
       <div class="right">
         <div class="phone-block">
           <img src="~/assets/images/phone.svg" class="phone-icon" />
-          <span class="phone-text">+7 (900) 900-90-90</span>
+          <a :href="`tel:${phone.value}`" class="phone-text">{{ phone.label }}</a>
         </div>
 
         <Button class="btn-desktop">Оставить заявку</Button>
@@ -133,6 +135,7 @@ const isDrawerOpen = ref(false);
   line-height: 17px;
   color: vars.$color-black;
   font-family: vars.$font-title;
+  text-decoration: none;
 }
 
 .btn-desktop {
