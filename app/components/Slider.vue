@@ -26,17 +26,26 @@ const slides = [
   {
     image_landscape: { x1: s1L1x, x2: s1L2x },
     image_portrait: { x1: s1P1x, x2: s1P2x },
-    alt: 'Современный загородный дом с бассейном'
+    title: 'Проектируем и строим<br>загородные дома',
+    description: 'Строим дома «под ключ»: от этапа проектирования и до финишной отделки помещений. Гарантируем качество и соблюдение сроков.',
+    alt: 'Современный загородный дом с бассейном',
+    hasOverlay: false
   },
   {
     image_landscape: { x1: s2L1x, x2: s2L2x },
     image_portrait: { x1: s2P1x, x2: s2P2x },
-    alt: 'Уютный дом в горах'
+    title: 'Дизайн-проект<br>бесплатно',
+    description: 'При заказе строительства дома – дизайн-проект интерьера в подарок. Продумаем каждую деталь вашего будущего уюта.',
+    alt: 'Уютный дом в горах',
+    hasOverlay: true
   },
   {
     image_landscape: { x1: s3L1x, x2: s3L2x },
     image_portrait: { x1: s3P1x, x2: s3P2x },
-    alt: 'Коттедж с панорамными окнами'
+    title: 'Работаем уже<br>14 лет',
+    description: 'Мы на рынке загородного строительства более десяти лет. 57 домов спроектировали и построили «под ключ».',
+    alt: 'Коттедж с панорамными окнами',
+    hasOverlay: true
   }
 ]
 
@@ -50,11 +59,6 @@ const onSlideChange = (swiper) => {
 <template>
   <section class="hero-section">
     <div class="slider-container">
-      <div class="static-content">
-        <h1 class="main-title">Проектируем и строим<br>загородные дома</h1>
-        <p class="main-description">Строим дома «под ключ»: от этапа проектирования и до финишной отделки помещений. Гарантируем качество и соблюдение сроков.</p>
-      </div>
-
       <Swiper
         :modules="[Navigation, Pagination]"
         :slides-per-view="1"
@@ -64,6 +68,13 @@ const onSlideChange = (swiper) => {
       >
         <SwiperSlide v-for="(slide, index) in slides" :key="index">
           <figure class="slide-figure">
+            <div v-if="slide.hasOverlay" class="slide-overlay"></div>
+            
+            <div class="slide-content">
+              <h2 class="main-title" v-html="slide.title"></h2>
+              <p class="main-description">{{ slide.description }}</p>
+            </div>
+
             <picture>
               <source
                 media="(min-width: 768px)"
@@ -119,7 +130,14 @@ const onSlideChange = (swiper) => {
   }
 }
 
-.static-content {
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.slide-content {
   position: absolute;
   top: 50%;
   left: 0;
@@ -134,6 +152,12 @@ const onSlideChange = (swiper) => {
   @include mixins.tablet {
     padding-left: 100px;
     max-width: 500px;
+  }
+  
+  @include mixins.small-tablet {
+    padding-left: 40px; 
+    padding-right: 40px;
+    max-width: 100%;
   }
 
   @include mixins.mobile {
@@ -186,6 +210,7 @@ const onSlideChange = (swiper) => {
   width: 100%;
   height: 100%;
   background-color: vars.$color-gray;
+  position: relative;
 }
 
 .slide-img {
@@ -193,5 +218,7 @@ const onSlideChange = (swiper) => {
   height: 100%;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 </style>

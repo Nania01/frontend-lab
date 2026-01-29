@@ -89,7 +89,7 @@ const goToSlide = (index) => {
     right: 32px;
   }
 
-  @include mixins.mobile {
+  @include mixins.small-tablet {
     display: none;
   }
 }
