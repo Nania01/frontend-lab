@@ -147,7 +147,8 @@ onUnmounted(() => {
   gap: 24px;
   font-family: vars.$font-base;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .contacts-block {
@@ -162,12 +163,13 @@ onUnmounted(() => {
   align-items: center;
   gap: 12px;
   font-family: vars.$font-title;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
 
   &.address {
     align-items: flex-start;
     line-height: 1.4;
-    font-family: vars.$font-base;
   }
 }
 
