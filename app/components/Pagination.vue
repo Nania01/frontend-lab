@@ -1,41 +1,76 @@
 <script setup>
+import { defineProps, defineEmits } from 'vue'
+import {
+  PaginationRoot,
+  PaginationList,
+  PaginationListItem,
+  PaginationEllipsis,
+  PaginationPrev,
+  PaginationNext
+} from 'radix-vue'
 import arrowIcon from '~/assets/images/arrow.svg'
+
+defineProps({
+  total: { type: Number, required: true },
+  itemsPerPage: { type: Number, default: 12 },
+  currentPage: { type: Number, default: 1 }
+})
+
+const emit = defineEmits(['update:page'])
 </script>
 
 <template>
-  <div class="pagination">
-    <button class="page-btn disabled">
-       <img :src="arrowIcon" alt="prev" class="arrow-icon prev-icon" />
-    </button>
-    
-    <div class="pages-wrapper">
-      <button class="page-btn active-dark">1</button>
-      <button class="page-btn">2</button>
-      <div class="page-btn dots-box">...</div>
-      <button class="page-btn">9</button>
-      <button class="page-btn">10</button>
-    </div>
-    
-    <button class="page-btn next-green">
-      <img :src="arrowIcon" alt="next" class="arrow-icon white" /> 
-    </button>
-  </div>
+  <PaginationRoot
+    :total="total"
+    :items-per-page="itemsPerPage"
+    :page="currentPage"
+    :sibling-count="1"
+    class="pagination-root"
+    @update:page="(val) => emit('update:page', val)"
+  >
+    <PaginationList v-slot="{ items }" class="pages-wrapper">
+      <PaginationPrev class="page-btn prev">
+        <img :src="arrowIcon" alt="prev" class="arrow-icon prev-icon" />
+      </PaginationPrev>
+
+      <template v-for="(page, index) in items">
+        <PaginationListItem
+          v-if="page.type === 'page'"
+          :key="index"
+          :value="page.value"
+          class="page-btn"
+        >
+          {{ page.value }}
+        </PaginationListItem>
+        
+        <PaginationEllipsis v-else :key="page.type + index" class="page-btn dots-box">
+          &#8230;
+        </PaginationEllipsis>
+      </template>
+
+      <PaginationNext class="page-btn next-green">
+        <img :src="arrowIcon" alt="next" class="arrow-icon white" />
+      </PaginationNext>
+    </PaginationList>
+  </PaginationRoot>
 </template>
 
 <style scoped lang="scss">
 @use "~/assets/styles/variables" as vars;
 
-.pagination {
+.pagination-root {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 20px;
   margin-top: 60px;
 }
 
 .pages-wrapper {
   display: flex;
+  align-items: center;
   gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .page-btn {
@@ -56,48 +91,49 @@ import arrowIcon from '~/assets/images/arrow.svg'
   padding: 0;
   box-sizing: border-box;
 
-  &:hover:not(.dots-box):not(.disabled) {
+  &:hover:not(.dots-box):not([disabled]) {
     border-color: vars.$color-green;
     color: vars.$color-green;
   }
-}
 
-.active-dark {
-  background: vars.$color-footer-bg;
-  color: vars.$color-white;
-  border-color: vars.$color-footer-bg;
-
-  &:hover {
+  &[data-selected] {
     background: vars.$color-footer-bg;
     color: vars.$color-white;
     border-color: vars.$color-footer-bg;
-    opacity: 0.9;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+    border-color: vars.$color-border;
+  }
+}
+
+.prev {
+  margin-right: 12px;
 }
 
 .next-green {
+  margin-left: 12px;
   background: vars.$color-green;
   border-color: vars.$color-green;
   
-  &:hover {
+  &:hover:not([disabled]) {
     background: vars.$color-green;
     border-color: vars.$color-green;
     opacity: 0.9;
-  }
-}
-
-.disabled {
-  opacity: 0.5;
-  cursor: default;
-  &:hover {
-    border-color: vars.$color-border;
+    color: white;
   }
 }
 
 .dots-box {
   cursor: default;
+  border: none;
   &:hover {
-    border-color: vars.$color-border;
     color: vars.$color-black;
   }
 }
