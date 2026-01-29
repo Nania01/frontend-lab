@@ -1,4 +1,10 @@
 <script setup>
+import {
+  YandexMap,
+  YandexMapDefaultSchemeLayer,
+  YandexMapDefaultFeaturesLayer,
+  YandexMapDefaultMarker
+} from 'vue-yandex-maps'
 import { mockContacts } from '~/mock/contacts'
 
 const { address } = mockContacts
@@ -17,15 +23,20 @@ const mapSettings = {
       
       <Breadcrumbs currentText="Контакты" />
 
-      <h1 class="page-title">Контакты</h1>
-
       <div class="contacts-wrapper">
         <div class="info-column">
+          <h1 class="page-title">Контакты</h1>
           <ContactsInfo />
         </div>
 
         <div class="map-column">
-          <div class="map-placeholder">Карта загружается...</div>
+          <ClientOnly>
+            <yandex-map :settings="mapSettings">
+              <yandex-map-default-scheme-layer />
+              <yandex-map-default-features-layer />
+              <yandex-map-default-marker :settings="{ coordinates: address.coords }" />
+            </yandex-map>
+          </ClientOnly>
         </div>
       </div>
       
@@ -62,7 +73,7 @@ const mapSettings = {
   font-weight: 700;
   font-size: 46px;
   line-height: 1.2;
-  margin: 0 0 40px 0;
+  margin: 0 0 32px 0;
   color: vars.$color-black;
 
   @include mixins.mobile {
@@ -73,8 +84,9 @@ const mapSettings = {
 
 .contacts-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr; 
+  grid-template-columns: 1fr 1.5fr; 
   gap: 30px;
+  align-items: start;
 
   @include mixins.tablet {
     grid-template-columns: 1fr;
@@ -89,18 +101,19 @@ const mapSettings = {
 
 .map-column {
   width: 100%;
-  height: 400px;
+  height: 360px;
   background-color: #eee;
   border-radius: 20px;
   overflow: hidden;
-}
-
-.map-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: vars.$color-gray;
+  position: relative;
+  
+  @include mixins.mobile {
+    height: 300px;
+  }
+  
+  :deep(.yandex-map) {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
