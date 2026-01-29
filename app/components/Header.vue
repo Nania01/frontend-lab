@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue';
+
+const isDrawerOpen = ref(false);
+</script>
+
 <template>
   <header class="header">
     <div class="inner">
@@ -18,8 +24,14 @@
           <span class="phone-text">+7 (900) 900-90-90</span>
         </div>
 
-        <Button>Оставить заявку</Button>
+        <Button class="btn-desktop">Оставить заявку</Button>
+
+        <button class="btn-mobile" @click="isDrawerOpen = true">
+          <img src="~/assets/images/menu-icon.svg" class="menu-icon" />
+        </button>
       </div>
+      
+      <Drawer :isOpen="isDrawerOpen" @close="isDrawerOpen = false" />
 
     </div>
   </header>
@@ -32,29 +44,43 @@
 .header {
   padding: vars.$header-padding-y vars.$header-padding-x;
   background: vars.$color-white;
+
+  @include mixins.tablet {
+    padding: 24px 32px;
+  }
+
+  @include mixins.mobile {
+    padding: 16px;
+  }
 }
 
 .inner {
   @include mixins.flex-row;
   justify-content: space-between;
-  gap: 10px;
-  height: 49px;
+  gap: 20px;
 }
 
 .left {
   @include mixins.flex-row;
-  height: 39px;
-  gap: vars.$logo-menu-gap;
+  gap: 30px;
+  flex: 1;
+  align-items: center;
+
+  @include mixins.tablet {
+    gap: 20px;
+  }
 }
 
 .logo {
   width: 160px;
   height: 39px;
+  flex-shrink: 0;
 }
 
 .menu {
   @include mixins.flex-row;
-  gap: vars.$menu-gap;
+  column-gap: vars.$menu-gap;
+  row-gap: 4px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -62,17 +88,28 @@
   font-size: 16px;
   font-family: vars.$font-base;
   line-height: 19px;
+  flex-wrap: wrap;
+
+  @include mixins.tablet {
+    display: none;
+  }
 }
 
 .right {
   @include mixins.flex-row;
   gap: 24px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .phone-block {
   @include mixins.flex-row;
   gap: 8px;
-  height: 17px;
+  white-space: nowrap;
+
+  @include mixins.mobile {
+    display: none;
+  }
 }
 
 .phone-icon {
@@ -85,5 +122,33 @@
   line-height: 17px;
   color: vars.$color-black;
   font-family: vars.$font-title;
+}
+
+.btn-desktop {
+  @include mixins.small-tablet {
+    display: none;
+  }
+}
+
+.btn-mobile {
+  display: none;
+  width: 49px;
+  height: 49px;
+  border: none;
+  border-radius: 10px;
+  background: vars.$color-green;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  @include mixins.small-tablet {
+    display: flex;
+  }
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
 }
 </style>
