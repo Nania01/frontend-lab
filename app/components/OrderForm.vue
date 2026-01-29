@@ -96,20 +96,23 @@ const onSubmit = handleSubmit((values) => {
   padding: 16px 20px; 
   border: none;
   border-radius: 8px;
-  font-family: vars.$font-base;
-  font-size: 16px;
-  color: vars.$color-black;
+  
+  font-family: vars.$font-title;
+  font-weight: 500;
+  font-size: 14px;
+  color: #9D9C9C;
+
   box-sizing: border-box;
   outline: none;
-  background-color: #F7F7F7;
+  background-color: #FFFFFF;
   
   &::placeholder {
-    color: #BDBDBD;
+    color: #9D9C9C;
   }
 
   &:focus {
     box-shadow: 0 0 0 1px vars.$color-green;
-    background-color: vars.$color-white;
+    color: vars.$color-black;
   }
 }
 
@@ -132,11 +135,15 @@ const onSubmit = handleSubmit((values) => {
   margin-top: 8px;
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .submit-btn {
-  width: 100% !important; 
+  width: auto !important; 
   max-width: 100%;
+  padding: 16px 48px;
+  font-family: vars.$font-base;
+  font-weight: 400;
 }
 
 .legal-text {

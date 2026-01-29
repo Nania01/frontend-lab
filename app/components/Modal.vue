@@ -55,7 +55,7 @@ const emit = defineEmits(['update:open'])
 
 .content {
   box-sizing: border-box;
-  background-color: white;
+  background-color: #F5F7F3;
   border-radius: 20px;
   box-shadow: 0 10px 38px -10px rgba(22, 23, 24, 0.35), 0 10px 20px -15px rgba(22, 23, 24, 0.2);
   position: fixed;
@@ -112,7 +112,7 @@ const emit = defineEmits(['update:open'])
   align-items: center;
   justify-content: center;
   color: vars.$color-green;
-  background-color: #E8F8F1; 
+  background-color: #029F5933; 
   border: none;
   cursor: pointer;
   transition: all 0.2s;
