@@ -88,11 +88,7 @@ const newsList = [
   <div class="page-news">
     <div class="container">
       
-      <div class="breadcrumbs">
-        <NuxtLink to="/" class="crumb-link green">Главная</NuxtLink>
-        <span class="separator">/</span>
-        <span class="crumb-current">Новости</span>
-      </div>
+      <Breadcrumbs currentText="Новости" />
 
       <h1 class="page-title">Новости</h1>
 
@@ -134,28 +130,6 @@ const newsList = [
 
   @include mixins.mobile {
     padding: 0 16px;
-  }
-}
-
-.breadcrumbs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 40px;
-  font-family: vars.$font-base;
-  font-size: 14px;
-  color: vars.$color-gray;
-}
-
-.crumb-link {
-  color: vars.$color-gray;
-  transition: color 0.2s;
-  
-  &.green {
-    color: vars.$color-green;
-  }
-
-  &:hover {
-    opacity: 0.8;
   }
 }
 
