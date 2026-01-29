@@ -3,7 +3,8 @@
     <Header />
 
     <main class="main">
-      <h1>Hello, world!</h1>
+      <Slider />
+      <InfoBlock />
     </main>
 
     <Footer />
@@ -26,13 +27,7 @@ body, html, #__nuxt, .root {
 
 .main {
   flex-grow: 1;
-  padding: 48px 0;
+  padding: 0; 
   text-align: center;
-}
-
-h1 {
-  font-size: 36px;
-  font-family: 'Montserrat';
-  margin: 0;
 }
 </style>
