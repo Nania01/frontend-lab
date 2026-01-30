@@ -36,9 +36,9 @@ const baseNews = [
   }
 ]
 
-const newsList = Array.from({ length: 32 }, (_, i) => ({
-  ...baseNews[i % 4]
-}))
+const newsList = baseNews.flatMap(item => 
+  Array.from({ length: 12 }, () => ({ ...item }))
+)
 
 const itemsPerPage = 12
 const currentPage = ref(1)
