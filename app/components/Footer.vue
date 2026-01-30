@@ -7,12 +7,14 @@ const isModalOpen = ref(false)
 
 <template>
   <footer class="footer">
-    <img src="~/assets/images/logo-footer.svg" class="logo" alt="Logo" />
+    <NuxtLink to="/" class="logo-link">
+        <img src="~/assets/images/logo-footer.svg" class="logo" alt="Logo" />
+    </NuxtLink>
 
     <ul class="sections">
-      <li>Реализованные проекты</li>
-      <li>Новости</li>
-      <li>Контакты</li>
+      <li><NuxtLink to="/">Реализованные проекты</NuxtLink></li>
+      <li><NuxtLink to="/news">Новости</NuxtLink></li>
+      <li><NuxtLink to="/">Контакты</NuxtLink></li>
     </ul>
 
     <ul class="sections contacts-list">
@@ -94,10 +96,14 @@ const isModalOpen = ref(false)
   }
 }
 
+.logo-link {
+    grid-area: logo;
+}
+
 .logo {
-  grid-area: logo;
   width: 160px;
   height: 39px;
+  display: block;
 
   @include mixins.mobile {
     margin-bottom: 8px;
@@ -118,6 +124,13 @@ const isModalOpen = ref(false)
 
   @include mixins.mobile {
     align-items: flex-start;
+  }
+  
+  li a {
+      color: vars.$color-white;
+      &:hover {
+          text-decoration: underline;
+      }
   }
 }
 
